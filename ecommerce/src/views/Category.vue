@@ -1,5 +1,5 @@
 <template>
-    <p>Category view - components to add</p>
+  <p>Category view - components to add</p>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -14,8 +14,7 @@ export default defineComponent({
   data() {
     return {
       user: "",
-      }
     }
   }
-);
+});
 </script>
