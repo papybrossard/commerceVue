@@ -7,7 +7,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "ProductTable",
   emits: ["productAdded", "showDetails"],
-  props: ["products"],
+  props: ["product"],
   methods: {
     addToCart(id: number) {
       this.$emit("productAdded", id);
