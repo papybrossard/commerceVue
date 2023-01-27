@@ -1,24 +1,16 @@
 <template>
-  <div
-    v-for="category in categories"
-    :key="category.id"
-    class="card"
-    style="width: 18rem"
-  >
-    <img src="..." class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">{{ category }}</h5>
-      <a href="#" class="btn btn-primary">Voir les Articles</a>
-    </div>
-  </div>
+  <ProductTable :product="products" />
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import ProductTable from "./ProductTable.vue";
 
 export default defineComponent({
   name: "CategoriesList",
   emits: ["productAdded", "showDetails"],
-  props: ["categories"],
+  components: {
+    ProductTable,
+  },
   methods: {
     addToCart(id: number) {
       this.$emit("productAdded", id);
@@ -26,6 +18,24 @@ export default defineComponent({
     showDetails(id: number) {
       this.$emit("showDetails", id);
     },
+    getSpecificCategories() {
+      let url =
+        "https://fakestoreapi.com/products/category/" + this.$route.params.id;
+      fetch(url).then((res) =>
+        res.json().then((json) => {
+          for (let i = 0; i < json.length; i++) this.products.push(json[i]);
+        })
+      );
+    },
+  },
+  updated(): void {
+    console.log("update");
+    this.getSpecificCategories();
+  },
+  data() {
+    return {
+      products: new Array<String>,
+    };
   },
 });
 </script>

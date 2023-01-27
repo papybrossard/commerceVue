@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AllProduct from "../views/AllProduct.vue";
-import Category from "../views/Category.vue";
+import Category from "../views/CategoryProduct.vue";
 import MyCart from "../views/MyCart.vue";
 
 const router = createRouter({
@@ -12,7 +12,7 @@ const router = createRouter({
       component: AllProduct,
     },
     {
-      path: "/Category",
+      path: "/Category/",
       name: "Category",
       component: Category,
     },
@@ -20,6 +20,11 @@ const router = createRouter({
       path: "/MyCart",
       name: "MyCart",
       component: MyCart,
+    },
+    {
+      path: "/Category/:id",
+      name: "personnalize",
+      component: Category,
     },
   ],
 });
