@@ -30,7 +30,6 @@ export default defineComponent({
   methods: {
     addToCart(item: Item): void {
       this.cartStore.addCartItem(item);
-      console.log(this.cartStore.cartItems);
     },
   },
   data() {

@@ -4,6 +4,7 @@ export default class Item {
   title: string;
   category: string;
   image: string;
+  quantity: number;
 
   constructor(
     id: number,
@@ -17,6 +18,7 @@ export default class Item {
     this.title = title;
     this.image = image;
     this.category = category;
+    this.quantity = 1;
   }
 
   getPrice(): number {
@@ -33,5 +35,9 @@ export default class Item {
 
   getCategory(): string {
     return this.category;
+  }
+
+  getQuantity(): string {
+    return this.quantity;
   }
 }
