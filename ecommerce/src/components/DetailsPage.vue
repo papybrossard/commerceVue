@@ -1,13 +1,12 @@
 <template>
-  <p>Page de détails</p>
+  <p>{{ item.category }}</p>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "ProductTable",
-  emits: ["productAdded", "showDetails"],
-  props: ["product"],
+  name: "DetailsPage",
+  props: ["item"],
   methods: {
     addToCart(id: number) {
       this.$emit("productAdded", id);

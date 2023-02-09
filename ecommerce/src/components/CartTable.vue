@@ -3,7 +3,7 @@
     <div class="row text-center mt-3 mb-3">
       <h2>Récapitulatif commande</h2>
     </div>
-    <ul v-if="cartStore.cartItems.length" class="list-group col-md-8">
+    <ul v-if="cartStore.cartItems.length >= 1" class="list-group col-md-8">
       <li v-for="item in cartStore.cartItems" :key="item.id" id="product">
         <div class="row mt-2 ms-5" id="rowProduct">
           <div class="col-md-2" style="box-shadow: 3px 3px 3px lightgray">
@@ -26,6 +26,7 @@
               title="Qty"
               class="input-text qty text"
               size="2"
+              v-model="item.quantity"
               pattern=""
             />
           </div>
@@ -34,7 +35,7 @@
             <span>{{ item.price }} €</span>
           </div>
           <div class="col-md-1">
-            <button class="btn" @click="cartStore.deleteItems()">
+            <button class="btn" @click="cartStore.deleteItem(item)">
               <i class="fa fa-trash"></i>
             </button>
           </div>
@@ -45,13 +46,15 @@
     <ul class="list-group col-md-3 mt-2">
       <div class="row" id="panier">
         <li id="panierList" class="mt-1">
-          <span
-            ><strong>Coût total du panier :</strong> {{ totalPanier }} €
+          <span>
+            <strong>
+              Coût total du panier:{{ cartStore.getTotalCart() }} €
+            </strong>
           </span>
         </li>
         <li id="montantList" class="mt-4 mb-2 text-center">
-          <button @click="deleteAllProducts()" class="btn btn-success">
-            Vider le panier
+          <button @click="cartStore.deleteAllItems()" class="btn btn-success">
+            Payer
           </button>
         </li>
       </div>
@@ -63,19 +66,10 @@ import { defineComponent } from "vue";
 import { cartStore } from "@/stores/cart";
 
 export default defineComponent({
-  name: "PanierTable",
-  /* methode dans store, cart.ts*/
-  computed: {
-    totalPanier() {
-      let total = 0;
-      this.cartStore.cartItems.forEach((item) => {
-        total = total + item.price;
-      });
-      return total;
-    },
-  },
+  name: "CartTable",
   data() {
     return {
+      cartStore: cartStore(),
     };
   },
 });

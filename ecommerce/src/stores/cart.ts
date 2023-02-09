@@ -6,25 +6,25 @@ export const cartStore = defineStore("cart", () => {
   const cartItems = ref<Array<Item>>([]);
 
   const addCartItem = (itemAdded: Item) => {
-    const idxIntem = cartItems.value.findIndex((t) => {
-      t.id = itemAdded.id;
-    });
-    if (idxIntem != -1) {
-      cartItems.value[idxIntem].quantity++;
-      console.log(cartItems.value[idxIntem]);
+    let idx = -1;
+
+    idx = cartItems.value.findIndex((t) => t.id === itemAdded.id);
+
+    if (idx > -1) {
+      cartItems.value[idx].quantity++;
     } else {
       cartItems.value.push(itemAdded);
-      console.log(idxIntem);
     }
   };
   const getCartItems = () => {
     return cartItems.value;
   };
 
-  const deleteItems = (itemDeleted: Item) => {
-    const idx = cartItems.value.findIndex((t) => t.id === itemDeleted.id);
-    if (idx != -1) {
-      cartItems.value.slice(idx);
+  const deleteItem = (itemDeleted: Item) => {
+    const index = cartItems.value.findIndex((t) => t.id === itemDeleted.id);
+
+    if (index != -1) {
+      cartItems.value.splice(index, 1);
     }
   };
 
@@ -33,5 +33,22 @@ export const cartStore = defineStore("cart", () => {
       cartItems.value.splice(i);
     });
   };
-  return { cartItems, addCartItem, getCartItems, deleteItems, deleteAllItems  };
+
+  const getTotalCart = () => {
+    if (cartItems.value.length) {
+      return cartItems.value
+        .map((item) => item.price * item.quantity)
+        .reduce((a, b) => a + b);
+    } else {
+      return 0;
+    }
+  };
+  return {
+    cartItems,
+    addCartItem,
+    getCartItems,
+    deleteItem,
+    deleteAllItems,
+    getTotalCart,
+  };
 });

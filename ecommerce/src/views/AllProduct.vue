@@ -1,9 +1,11 @@
 <template>
-  <ProductTable />
+  <ProductTable v-show="product" />
+  <DetailPage v-show="product"/>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import ProductTable from "@/components/ProductTable.vue";
+import DetailPage from "@/components/DetailsPage.vue";
 import { itemStore } from "../stores/item";
 import Item from "../Entity/Item";
 
@@ -11,6 +13,7 @@ export default defineComponent({
   name: "AllProduct",
   components: {
     ProductTable,
+    DetailPage
   },
   methods: {
     getProducts() {
@@ -31,13 +34,23 @@ export default defineComponent({
       );
     },
   },
-  created() {
+  mounted() {
     this.getProducts();
   },
   data() {
     return {
       itemStore: itemStore(),
+      product: Boolean(false),
     };
   },
+  method: {
+    show() {
+      if (this.product) {
+        this.product = false;
+      } else {
+        this.product = true;
+      }
+    }
+  }
 });
 </script>

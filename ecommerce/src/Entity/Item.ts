@@ -37,7 +37,7 @@ export default class Item {
     return this.category;
   }
 
-  getQuantity(): string {
+  getQuantity(): number {
     return this.quantity;
   }
 }

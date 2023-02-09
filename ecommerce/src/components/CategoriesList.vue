@@ -29,12 +29,11 @@ export default defineComponent({
     },
   },
   updated(): void {
-    console.log("update");
     this.getSpecificCategories();
   },
   data() {
     return {
-      products: new Array<String>,
+      products: new Array<String>(),
     };
   },
 });
